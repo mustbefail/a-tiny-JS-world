@@ -7,6 +7,12 @@
 
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
+Array.prototype.toString = function() {
+  return this.includes('no friends')
+    ? 'no friends'
+    : this.map((el) => el.name).join(',');
+}
+
 class Inhabitant {
   constructor(species, name, gender, phrase, friends, legs) {
     this.friends = friends ? friends : ['no friends'];
@@ -68,9 +74,9 @@ const cat = new Cat('Prokhor', 'male', 'Meow!');
 const man = new Human('Alfred', 'male', 'Master Bruce!');
 const woman = new Human('Anna', 'female', 'Need more money!');
 
-dog.friends = [cat.name, man.name];
-cat.friends = [woman.name, dog.name];
-man.friends = [woman.name, dog.name, cat.name, man.name];
+dog.friends = [cat, man];
+cat.friends = [woman, dog];
+man.friends = [woman, dog, cat, man];
 // ======== OUTPUT ========
 /* Use print(message) for output.
   Default tag for message is <pre>. Use print(message,'div') to change containing element tag.
