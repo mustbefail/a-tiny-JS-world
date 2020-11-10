@@ -7,15 +7,10 @@
 
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
-Array.prototype.toString = function() {
-  return this.includes('no friends')
-    ? 'no friends'
-    : this.map((el) => el.name).join(',');
-}
-
 class Inhabitant {
-  constructor(species, name, gender, phrase, friends, legs) {
-    this.friends = friends ? friends : ['no friends'];
+  constructor(species, name, gender, phrase, friends = [], legs) {
+    this.friends = friends;
+    this.addFriends(friends);
     this.species = species;
     this.name = name;
     this.gender = gender;
@@ -23,7 +18,17 @@ class Inhabitant {
     this.phrase = phrase;
   }
 
-  saying() {
+  addFriends(friends) {
+    this.friends = [...this.friends, ...friends];
+  }
+
+  listFriendNames() {
+    return this.friends.length 
+      ? this.friends.map(friend => friend.name).join(", ")
+      : 'no friends'
+  }
+
+  sayPhrase() {
     return this.phrase;
   }
 
@@ -33,8 +38,8 @@ class Inhabitant {
     }</strong>, my gender is <strong>${
       this.gender
     }</strong>,My friends: <strong>${
-      this.friends
-    }</strong>  and you know what: <strong>${this.saying()}</strong>`;
+      this.listFriendNames()
+    }</strong>  and you know what: <strong>${this.sayPhrase()}</strong>`;
   }
 }
 
